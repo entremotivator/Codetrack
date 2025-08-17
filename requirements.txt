@@ -1,3 +1,7 @@
 matplotlib
 plotly
 aiohttp
+requests
+pandas
+plotly
+numpy
