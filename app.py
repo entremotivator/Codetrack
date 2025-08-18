@@ -96,7 +96,8 @@ def main():
         if st.session_state.get('show_real_login', False):
             create_real_api_login()
         else:
-            create_demo_login_screen()import streamlit as st
+            create_demo_login_screen()
+import streamlit as st
 import requests
 import pandas as pd
 import plotly.express as px
