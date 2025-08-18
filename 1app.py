@@ -946,7 +946,8 @@ def create_predictive_analytics(all_usage_data: Dict[str, pd.DataFrame]) -> None
     st.plotly_chart(fig, use_container_width=True)
 
 def create_anomaly_detection(all_usage_data: Dict[str, pd.DataFrame]) -> None:
-    """Detect usage anomalies and alerts."""
+    """Detect usage anomalies and display alerts in Streamlit."""
+    
     st.subheader("🚨 Anomaly Detection")
     
     anomalies = []
@@ -988,6 +989,7 @@ def create_anomaly_detection(all_usage_data: Dict[str, pd.DataFrame]) -> None:
                 "severity": "🔴 Critical" if row["num_model_requests"] > requests_threshold * 1.5 else "🟡 Warning"
             })
     
+    # Show results
     if anomalies:
         st.warning(f"⚠️ {len(anomalies)} anomalies detected!")
         
@@ -999,22 +1001,27 @@ def create_anomaly_detection(all_usage_data: Dict[str, pd.DataFrame]) -> None:
             use_container_width=True
         )
         
-        # Anomaly summary
+        # Summary charts
         col1, col2 = st.columns(2)
         with col1:
             severity_counts = anomaly_df["severity"].value_counts()
-            fig = px.pie(values=severity_counts.values, names=severity_counts.index,
-                        title="🚨 Anomaly Severity Distribution")
+            fig = px.pie(
+                values=severity_counts.values,
+                names=severity_counts.index,
+                title="🚨 Anomaly Severity Distribution"
+            )
             st.plotly_chart(fig, use_container_width=True)
         
         with col2:
             api_counts = anomaly_df["api"].value_counts()
-            fig = px.bar(x=api_counts.index, y=api_counts.values,
-                        title="📊 Anomalies by API Type")
+            fig = px.bar(
+                x=api_counts.index,
+                y=api_counts.values,
+                title="📊 Anomalies by API Type"
+            )
             st.plotly_chart(fig, use_container_width=True)
     else:
         st.success("✅ No anomalies detected in the current dataset!")
-
 # =============================
 # Main Application
 # =============================
