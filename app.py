@@ -978,7 +978,8 @@ def create_cost_analysis(user_stats: pd.DataFrame):
         )
         fig.update_traces(texttemplate='$%{text:.0f}', textposition='outside')
         fig.update_layout(height=600)
-            return
+        st.plotly_chart(fig, use_container_width=True)
+
     
     # Main dashboard content
     if st.session_state['demo_mode']:
