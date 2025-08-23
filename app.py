@@ -1542,6 +1542,29 @@ if __name__ == "__main__":
     
     col1, col2, col3 = st.columns(3)
     
+    if __name__ == "__main__":
+    main()
+    
+    with col2:
+        # Cost by department and plan
+        dept_plan_costs = user_stats.groupby(["department", "plan"])["total_cost"].sum().reset_index()
+        fig = px.treemap(
+            dept_plan_costs,
+            path=[px.Constant("Organization"), "department", "plan"],
+            values="total_cost",
+            title="🏢 Cost Distribution by Department & Plan",
+            color="total_cost",
+            color_continuous_scale="Blues"
+        )
+        fig.update_layout(height=600)
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Cost efficiency analysis
+    st.markdown("---")
+    st.markdown("#### ⚡ Cost Efficiency Analysis")
+    
+    col1, col2, col3 = st.columns(3)
+    
     with col1:
         # Efficiency vs Cost scatter
         fig = px.scatter(
